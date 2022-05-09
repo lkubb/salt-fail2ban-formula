@@ -1,0 +1,19 @@
+# This file is managed by Salt.
+# Manual changes might be overwritten.
+
+{%- macro render_line(name, value) %}
+{%-   if value | is_list %}
+{%-     set value = value | join("\n") | indent(name | length + 3) %}
+{%-   elif value in [true, false] %}
+{%-     set value = value | string | lower %}
+{%-   endif %}
+{{ name }} = {{ value }}
+{%- endmacro %}
+
+{%- for section, data in config.items() %}
+
+[{{ section }}]
+{%-   for var, val in data | dictsort %}
+{{- render_line(var, val) }}
+{%-   endfor %}
+{%- endfor %}

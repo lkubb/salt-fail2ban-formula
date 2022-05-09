@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set default values.
+---
+values:
+  lookup:
+    rootgroup: root
+    pkg:
+      name: fail2ban
+    config: '/etc/fail2ban/fail2ban.local'
+    service:
+      name: fail2ban
+  actions: {}
+  config: {}
+  filters: {}
+  jails: {}
+  jails_defaults: {}
+  jails_enabled: []
+  service_hardened: true
+  # Just here for testing
+  added_in_defaults: defaults_value
+  winner: defaults
+...

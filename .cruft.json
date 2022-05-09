@@ -1,0 +1,42 @@
+{
+  "template": "https://github.com/lkubb/salt-template-formula",
+  "commit": "50a694adefdf54f1ca465db433c033ca764942bc",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "_extensions": [
+        "local_extensions.YAMLDumper"
+      ],
+      "_jinja2_env_vars": {
+        "block_start_string": "{!",
+        "block_end_string": "!}",
+        "variable_start_string": "{=",
+        "variable_end_string": "=}",
+        "comment_start_string": "{@",
+        "comment_end_string": "@}"
+      },
+      "name": "Fail2Ban",
+      "abbr": "fail2ban",
+      "abbr_pysafe": "fail2ban",
+      "pkg": "fail2ban",
+      "needs_repo": "",
+      "config": "/etc/fail2ban/fail2ban.local",
+      "service": "fail2ban",
+      "subcomponent": "",
+      "subcomponent_config": "",
+      "git_username": "lkubb",
+      "_lookup": {},
+      "_settings": {
+        "actions": {},
+        "config": {},
+        "filters": {},
+        "jails": {},
+        "jails_defaults": {},
+        "jails_enabled": [],
+        "service_hardened": true
+      },
+      "_template": "https://github.com/lkubb/salt-template-formula"
+    }
+  },
+  "directory": null
+}

@@ -1,0 +1,3 @@
+{%- if mapdata.service_hardened and "systemd" | which %}
+  {%- do mapdata.config.update({"logtarget": "/var/log/fail2ban/fail2ban.log"}) %}
+{%- endif %}
