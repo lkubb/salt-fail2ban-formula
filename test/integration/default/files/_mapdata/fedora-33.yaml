@@ -8,6 +8,8 @@ values:
   lookup:
     arch: amd64
     rootgroup: root
+    pkg:
+      name: fail2ban
     config: '/etc/fail2ban/fail2ban.local'
     service:
       name: fail2ban

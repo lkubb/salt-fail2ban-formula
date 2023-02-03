@@ -7,6 +7,8 @@ fail2ban:
     # Just for testing purposes
     winner: lookup
     added_in_lookup: lookup_value
+    pkg:
+      name: fail2ban
     config: '/etc/fail2ban/fail2ban.local'
     service:
       name: fail2ban
