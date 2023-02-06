@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_file = tplroot ~ '.config.file' %}
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_config_file = tplroot ~ ".config.file" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 
 include:
   - {{ sls_config_file }}
 
-fail2ban-service-running-service-running:
+Fail2Ban is running:
   service.running:
     - name: {{ fail2ban.lookup.service.name }}
     - enable: True

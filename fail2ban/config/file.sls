@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_package_install = tplroot ~ '.package.install' %}
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_package_install = tplroot ~ ".package.install" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 {%- set fail2ban_conf_base = salt["file.dirname"](fail2ban.lookup.config) %}
@@ -10,17 +9,17 @@
 include:
   - {{ sls_package_install }}
 
-fail2ban-config-file-file-managed:
+Fail2Ban configuration is managed:
   file.managed:
     - name: {{ fail2ban.lookup.config }}
-    - source: {{ files_switch(['fail2ban.conf.j2'],
-                              lookup='fail2ban-config-file-file-managed'
+    - source: {{ files_switch(["fail2ban.conf.j2"],
+                              lookup="Fail2Ban configuration is managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}
@@ -32,14 +31,14 @@ fail2ban-config-file-file-managed:
 Fail2ban local jail configuration is managed:
   file.managed:
     - name: {{ fail2ban_conf_base | path_join("jail.local") }}
-    - source: {{ files_switch(['fail2ban.conf.j2'],
-                              lookup='Fail2ban jails are managed'
+    - source: {{ files_switch(["fail2ban.conf.j2"],
+                              lookup="Fail2ban jails are managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}
@@ -60,14 +59,14 @@ Fail2ban actions are managed:
         - context:
             config: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(['fail2ban.conf.j2'],
-                              lookup='Fail2ban actions are managed'
+    - source: {{ files_switch(["fail2ban.conf.j2"],
+                              lookup="Fail2ban actions are managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}
@@ -83,14 +82,14 @@ Fail2ban filters are managed:
         - context:
             config: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(['fail2ban.conf.j2'],
-                              lookup='Fail2ban filters are managed'
+    - source: {{ files_switch(["fail2ban.conf.j2"],
+                              lookup="Fail2ban filters are managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}
@@ -107,14 +106,14 @@ Fail2ban jails are managed:
             config:
               {{ name }}: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(['fail2ban.conf.j2'],
-                              lookup='Fail2ban jails are managed'
+    - source: {{ files_switch(["fail2ban.conf.j2"],
+                              lookup="Fail2ban jails are managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
-fail2ban-package-install-pkg-installed:
+Fail2Ban is installed:
   pkg.installed:
     - name: {{ fail2ban.lookup.pkg.name }}
 
@@ -14,14 +13,14 @@ fail2ban-package-install-pkg-installed:
 Fail2Ban hardened service unit is installed:
   file.managed:
     - name: /etc/systemd/system/{{ fail2ban.lookup.service.name }}.service.d/harden.conf
-    - source: {{ files_switch(['fail2ban.service'],
-                              lookup='Fail2Ban hardened service unit is installed'
+    - source: {{ files_switch(["fail2ban.service"],
+                              lookup="Fail2Ban hardened service unit is installed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ fail2ban.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
 
 Fail2Ban log directory exists:
   file.directory:

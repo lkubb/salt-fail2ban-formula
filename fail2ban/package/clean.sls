@@ -1,8 +1,12 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_clean = tplroot ~ '.config.clean' %}
+{#-
+    Removes the fail2ban package and service hardening overrides, if configured.
+    Has a depency on `fail2ban.config.clean`_.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_config_clean = tplroot ~ ".config.clean" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 
 include:
@@ -15,7 +19,7 @@ Fail2ban service overrides are removed:
     - name: /etc/systemd/system/{{ fail2ban.lookup.service.name }}.service.d
 {%- endif %}
 
-fail2ban-package-clean-pkg-removed:
+Fail2Ban is removed:
   pkg.removed:
     - name: {{ fail2ban.lookup.pkg.name }}
     - require:

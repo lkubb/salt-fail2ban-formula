@@ -1,15 +1,19 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_service_clean = tplroot ~ '.service.clean' %}
+{#-
+    Removes the configuration of the fail2ban service and has a
+    dependency on `fail2ban.service.clean`_.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_service_clean = tplroot ~ ".service.clean" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 {%- set fail2ban_conf_base = salt["file.dirname"](fail2ban.lookup.config) %}
 
 include:
   - {{ sls_service_clean }}
 
-fail2ban-config-clean-file-absent:
+Fail2Ban configuration is absent:
   file.absent:
     - names:
       - {{ fail2ban.lookup.config }}
