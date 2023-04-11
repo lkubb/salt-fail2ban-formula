@@ -10,6 +10,6 @@ include:
 Fail2Ban is running:
   service.running:
     - name: {{ fail2ban.lookup.service.name }}
-    - enable: True
+    - enable: true
     - watch:
       - sls: {{ sls_config_file }}

@@ -10,4 +10,4 @@
 Fail2Ban is dead:
   service.dead:
     - name: {{ fail2ban.lookup.service.name }}
-    - enable: False
+    - enable: false
