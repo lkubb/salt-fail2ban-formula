@@ -47,7 +47,7 @@ uninstalls the package.
 ``fail2ban.package.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Removes the fail2ban package and service hardening overrides, if configured.
-Has a depency on `fail2ban.config.clean`_.
+Has a dependency on `fail2ban.config.clean`_.
 
 
 ``fail2ban.config.clean``

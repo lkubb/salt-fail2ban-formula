@@ -3,7 +3,7 @@
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- set sls_package_install = tplroot ~ ".package.install" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
+{%- from tplroot ~ "/libtofsstack.jinja" import files_switch with context %}
 {%- set fail2ban_conf_base = salt["file.dirname"](fail2ban.lookup.config) %}
 
 include:
@@ -12,8 +12,10 @@ include:
 Fail2Ban configuration is managed:
   file.managed:
     - name: {{ fail2ban.lookup.config }}
-    - source: {{ files_switch(["fail2ban.conf.j2"],
-                              lookup="Fail2Ban configuration is managed"
+    - source: {{ files_switch(
+                    ["fail2ban.conf", "fail2ban.conf.j2"],
+                    config=fail2ban,
+                    lookup="Fail2Ban configuration is managed",
                  )
               }}
     - mode: '0644'
@@ -31,8 +33,10 @@ Fail2Ban configuration is managed:
 Fail2ban local jail configuration is managed:
   file.managed:
     - name: {{ fail2ban_conf_base | path_join("jail.local") }}
-    - source: {{ files_switch(["fail2ban.conf.j2"],
-                              lookup="Fail2ban jails are managed"
+    - source: {{ files_switch(
+                    ["fail2ban.conf.j2"],
+                    config=fail2ban,
+                    lookup="Fail2ban local jail configuration is managed",
                  )
               }}
     - mode: '0644'
@@ -59,8 +63,10 @@ Fail2ban actions are managed:
         - context:
             config: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(["fail2ban.conf.j2"],
-                              lookup="Fail2ban actions are managed"
+    - source: {{ files_switch(
+                    ["fail2ban.conf.j2"],
+                    config=fail2ban,
+                    lookup="Fail2ban actions are managed",
                  )
               }}
     - mode: '0644'
@@ -82,8 +88,10 @@ Fail2ban filters are managed:
         - context:
             config: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(["fail2ban.conf.j2"],
-                              lookup="Fail2ban filters are managed"
+    - source: {{ files_switch(
+                    ["fail2ban.conf.j2"],
+                    config=fail2ban,
+                    lookup="Fail2ban filters are managed",
                  )
               }}
     - mode: '0644'
@@ -106,8 +114,10 @@ Fail2ban jails are managed:
             config:
               {{ name }}: {{ config | json }}
 {%-   endfor %}
-    - source: {{ files_switch(["fail2ban.conf.j2"],
-                              lookup="Fail2ban jails are managed"
+    - source: {{ files_switch(
+                    ["fail2ban.conf.j2"],
+                    config=fail2ban,
+                    lookup="Fail2ban jails are managed",
                  )
               }}
     - mode: '0644'
