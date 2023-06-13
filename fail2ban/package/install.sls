@@ -2,7 +2,7 @@
 
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
+{%- from tplroot ~ "/libtofsstack.jinja" import files_switch with context %}
 
 Fail2Ban is installed:
   pkg.installed:
@@ -13,8 +13,10 @@ Fail2Ban is installed:
 Fail2Ban hardened service unit is installed:
   file.managed:
     - name: /etc/systemd/system/{{ fail2ban.lookup.service.name }}.service.d/harden.conf
-    - source: {{ files_switch(["fail2ban.service"],
-                              lookup="Fail2Ban hardened service unit is installed"
+    - source: {{ files_switch(
+                    ["fail2ban.service", "fail2ban.service.j2"],
+                    config=fail2ban,
+                    lookup="Fail2Ban hardened service unit is installed",
                  )
               }}
     - mode: '0644'
