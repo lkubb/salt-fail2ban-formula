@@ -4,6 +4,30 @@
 {%- from tplroot ~ "/map.jinja" import mapdata as fail2ban with context %}
 {%- from tplroot ~ "/libtofsstack.jinja" import files_switch with context %}
 
+{%- if grains.os_family == "RedHat" and grains.os != "Fedora" %}
+
+CRB and EPEL repos are enabled:
+  pkg.installed:
+    - name: epel-release
+    - require_in:
+      - Fail2Ban is installed
+
+{%-   if grains.os == "Rocky" %}
+  cmd.run:
+    - name: crb enable
+    - unless:
+      - crb status | grep 'is enabled'
+
+{%-   else %}
+  cmd.run:
+    - name: dnf config-manager --set-enabled crb
+    - unless:
+      - dnf repolist --enabled | grep -e '^crb'
+{%-   endif %}
+    - require_in:
+      - Fail2Ban is installed
+{%- endif %}
+
 Fail2Ban is installed:
   pkg.installed:
     - name: {{ fail2ban.lookup.pkg.name }}
